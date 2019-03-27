@@ -6,11 +6,30 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request
+from flask import render_template, request, jsonify
+from .forms import UploadForm
 
 ###
 # Routing for your application.
 ###
+
+@app.route('/api/upload', methods=["POST"])
+def upload():
+    photoform = UploadForm()
+
+    if request.method == 'POST':
+        if photoform.validate_on_submit():
+            description= photoform.description.data
+            photo= photoform.photo.data
+
+            filename= secure_filename(upload.filename)
+            upload.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename
+                ))
+
+            return jsonify({"message": "File Upload Successful", "filename": filename, "description": description})
+        else:
+            return jsonify(errors=form_errors(form))
 
 
 # Please create all new routes and view functions above this route.
