@@ -10,6 +10,7 @@ from flask import render_template, request, jsonify
 from .forms import UploadForm
 from werkzeug.utils import secure_filename
 import os, random, datetime
+
 ###
 # Routing for your application.
 ###
@@ -37,7 +38,7 @@ def upload():
 # This route is now our catch all route for our VueJS single page
 # application.
 @app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+#@app.route('/<path:path>')
 def index(path):
     """
     Because we use HTML5 history mode in vue-router we need to configure our
